@@ -58,19 +58,19 @@ sims <- function(Nsim,N){
   return(output)
 }
 
-sims.parallel <- function(Nsim,N){
-  require(foreach)
-  require(doParallel) # for Windows/Mac/Linux
-  #require(parallel) # for Linux/Mac
-  cl <- makeCluster(2)
-  registerDoParallel(cl)
-  output <- foreach(icount(Nsim), 
-                    .export=c('getbin','get.Handouts','probs','get.TotHandouts'),
-                    .combine=cbind) %dopar% {
-    get.TotHandouts(N)
-  }
-  stopCluster(cl)
-  return(output)
-}
-# system.time(res <- sims(Nsim,N))
+# sims.parallel <- function(Nsim,N){
+#   require(foreach)
+#   require(doParallel) # for Windows/Mac/Linux
+#   #require(parallel) # for Linux/Mac
+#   cl <- makeCluster(2)
+#   registerDoParallel(cl)
+#   output <- foreach(icount(Nsim), 
+#                     .export=c('getbin','get.Handouts','probs','get.TotHandouts'),
+#                     .combine=cbind) %dopar% {
+#     get.TotHandouts(N)
+#   }
+#   stopCluster(cl)
+#   return(output)
+# }
+system.time(res <- sims(Nsim,N))
 # system.time(res <- sims.parallel(Nsim,N))
